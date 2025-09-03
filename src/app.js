@@ -9,10 +9,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 import roomRouter from "./routes/room.routes.js";
-// REST API routes
-// app.use('/api', routes);
+import playerRouter from "./routes/player.routes.js";
 
-// Optional: health check endpoint
-app.get('/health', (req, res) => res.send({ status: 'ok' }));
+app.use("/api/rooms", roomRouter);
+app.use("/api/players", playerRouter);
+
+// app.get('/health', (req, res) => res.send({ status: 'ok' }));
 
 export default app;

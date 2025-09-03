@@ -1,10 +1,10 @@
-import { User } from "../models/users.model";
+import Player from "../models/player.model.js";
 import jwt from "jsonwebtoken";
-import { ApiError } from "../utils/ApiError";
+// import { ApiError } from "../utils/ApiError";
 
 export const signup=async(req,res)=>{
     const {username,password}=req.body;
-    const userExists=await User.findOne({username});
+    const playerExists=await Player.findOne({username});
     if(
         [username,password].some((field)=>
             field?.trim()==="")
@@ -13,14 +13,14 @@ export const signup=async(req,res)=>{
         throw new ApiError(400,"All fields are required!")
     }
 
-    if(userExists){
+    if(playerExists){
         return res.status(400).json({message:"User already exists"});
     }
     // const hashedPassword=await bcrypt.hash(password,10);
     // const token=jwt.sign({username},process.env.JWT_SECRET,{expiresIn:"1h"});
 
     try {
-        const userCreated=await User.create({
+        const userCreated=await Player.create({
             username,
             password
         });
