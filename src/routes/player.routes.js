@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { login, signup } from "../controllers/player.controllers.js";
+import { login, signup, getAllPlayers } from "../controllers/player.controllers.js";
+import auth from "../middlewares/auth.middleware.js";
 
-const router=Router();
+const router = Router();
 
-router.route("/login",login)
-router.route("signup",signup);
+router.post("/signup", signup);
+router.post("/login", login);
+router.get("/all", auth, getAllPlayers);
 
 export default router;
