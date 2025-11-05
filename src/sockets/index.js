@@ -39,7 +39,12 @@ class SocketServer {
         this.io = new Server(this.server, {
             // CORS configuration - allows frontend to connect
             cors: {
-                origin: process.env.FRONTEND_URL || "http://localhost:3000", // Your React app URL
+                origin: function (origin, callback) {
+                    // Allow requests with no origin or all origins
+                    if (!origin) return callback(null, true);
+                    // Allow all origins for now
+                    callback(null, true);
+                },
                 methods: ["GET", "POST"],
                 credentials: true
             },
